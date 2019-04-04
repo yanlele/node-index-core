@@ -1,0 +1,34 @@
+{
+  "name": "index-core",
+  "version": "1.0.0",
+  "description": "node-index 文章代码部分",
+  "main": "index.js",
+  "scripts": {
+    "commit": "git-cz"
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yanlele/node-index-core.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yanlele/node-index-core/issues"
+  },
+  "homepage": "https://github.com/yanlele/node-index-core#readme",
+  "devDependencies": {
+    "@types/node": "^11.12.2",
+    "commitizen": "^3.0.7",
+    "cz-conventional-changelog": "^2.1.0",
+    "tsconfig": "^5.0.3",
+    "tslint": "^5.15.0",
+    "tslint-config-standard": "^8.0.1"
+  },
+  "dependencies": {
+  }
+}
