@@ -1,5 +1,5 @@
 class Car {
-  private type: string;
+  protected type: string;
   constructor() {
     this.type = 'car'
   }
@@ -9,6 +9,10 @@ class Car {
 
   getSpeed(): Error | number {
     return new Error('匿名类不可调用');
+  }
+
+  public getType(): string {
+    return this.type;
   }
 }
 
@@ -34,6 +38,7 @@ class BMW extends Car {
 const bmw = new BMW(10000, 200);
 console.log('price', bmw.getPrice());
 console.log('speed', bmw.getSpeed());
+console.log('type', bmw.getType());
 
 
 
