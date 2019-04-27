@@ -3,7 +3,5 @@ const obj = {
 };
 
 const {username} = obj;
-const {age = {}} = obj;
 
 console.log(username);
-console.log(age);
