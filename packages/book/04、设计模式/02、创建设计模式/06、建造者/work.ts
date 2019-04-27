@@ -1,14 +1,14 @@
 // Human 属性skill\hobby  方法， 获取skill\hobby
 
-interface IHumanParams {
-  params?: { skill?: string; hobby?: string }
+interface HumanParamsInterface {
+  params?: { skill?: string; hobby?: string };
 }
 
 export class Human {
   public readonly skill?: string;
   public readonly hobby?: string;
 
-  constructor({params = {skill: '保密', hobby: '保密'}}: IHumanParams) {
+  constructor({ params = { skill: '保密', hobby: '保密' } }: HumanParamsInterface) {
     this.skill = params.skill;
     this.hobby = params.hobby;
   }
@@ -59,21 +59,15 @@ export class Work {
         break;
       default:
         this.work = word;
-        this.desc = '没有你描述的职位'
+        this.desc = '没有你描述的职位';
     }
   }
 
   changeWork(work: string) {
-    this.work = work
+    this.work = work;
   }
 
   changeDesc(desc: string) {
     this.desc = desc;
   }
 }
-
-
-
-
-
-

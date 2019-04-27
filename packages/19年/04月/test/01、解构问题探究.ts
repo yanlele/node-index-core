@@ -2,6 +2,6 @@ const obj = {
   username: 'yanle',
 };
 
-const {username} = obj;
+const { username } = obj;
 
 console.log(username);
