@@ -2,7 +2,7 @@ class Car {
   private readonly type: string;
 
   constructor() {
-    this.type = 'car'
+    this.type = 'car';
   }
 
   getPrice(): Error | number {
@@ -34,21 +34,21 @@ class Bus {
   }
 }
 
-class Truck {
-  private readonly type: string = 'Truck';
-
-  getPrice(): Error | number {
-    return new Error('匿名类不可调用');
-  }
-
-  getSpeed(): Error | number {
-    return new Error('匿名类不可调用');
-  }
-
-  getType(): string {
-    return this.type;
-  }
-}
+// class Truck {
+//   private readonly type: string = 'Truck';
+//
+//   getPrice(): Error | number {
+//     return new Error('匿名类不可调用');
+//   }
+//
+//   getSpeed(): Error | number {
+//     return new Error('匿名类不可调用');
+//   }
+//
+//   getType(): string {
+//     return this.type;
+//   }
+// }
 
 // 宝马车
 class BMW extends Car {
@@ -101,7 +101,6 @@ console.log(labbo.getPrice());
 console.log(labbo.getSpeed());
 console.log(labbo.getType());
 console.log('----------');
-
 
 class YUTONG extends Bus {
   private readonly price: number;
