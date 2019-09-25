@@ -4,6 +4,12 @@
 - [Puppeteer-spider](./src/Puppeteer-spider)
 
 
+### 遇到的问题
+- 如果没有办法安装请看puppeteer, 请看下面两个文章
+    - [npm安装puppeteer失败](https://www.cnblogs.com/ystrdy/p/11076275.html)
+    - [puppeteer 安装失败的解决办法](https://juejin.im/post/5b4a043751882519790c7ad7)
+
+
 这里集结所有node 的爬虫以及爬虫技巧和爬虫文章
 
 ### 参考文章
