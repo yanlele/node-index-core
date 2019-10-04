@@ -15,7 +15,7 @@ const run = async () => {
   const page = await browser.newPage();
   await page.setUserAgent(userAgent.toString());
   await page.goto('https://www.baidu.com/');
-  await page.waitForNavigation();
+  await page.waitForSelector('#kw');
   await page.type('#kw', 'puppeteer');
   await page.click('#su');
   await page.waitFor(1000);
