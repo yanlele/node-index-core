@@ -8,7 +8,7 @@ const main = async () => {
   await page.goto('https://juejin.im/');
 
   //打开掘进首页，点击第一个文章链接
-  await page.waitFor(3000);
+  await page.waitFor(1000);
 
   await page.waitForSelector(
     '#juejin > div.view-container > main > div > div > div.feed.welcome__feed > ul > li:nth-child(1) > div > div > a > div > div > div.info-row.title-row > a',
