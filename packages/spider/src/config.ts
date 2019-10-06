@@ -1,3 +1,10 @@
+import { Request } from 'puppeteer';
+import * as UserAgent from 'user-agents';
+
+const userAgent = new UserAgent({
+  deviceCategory: 'desktop',
+}).toString();
+
 export const initConfig = {
   timeout: 15000, // 浏览器启动时间
   devtools: false,
@@ -7,4 +14,27 @@ export const initConfig = {
     width: 1400,
     height: 800,
   },
+};
+
+export const handleCreatePage = async browser => {
+  const page = await browser.newPage();
+  await page.setUserAgent(userAgent);
+
+  // 过滤图片和css 文件
+  await page.setRequestInterception(true);
+  await page.on('request', async (interceptedRequest: Request) => {
+    if (
+      interceptedRequest.url().includes('.png') ||
+      interceptedRequest.url().includes('.jpg') ||
+      interceptedRequest.url().includes('.gif') ||
+      interceptedRequest.url().includes('.css') ||
+      interceptedRequest.url().includes('.js')
+    ) {
+      await interceptedRequest.abort();
+    } else {
+      await interceptedRequest.continue();
+    }
+  });
+
+  return page;
 };
