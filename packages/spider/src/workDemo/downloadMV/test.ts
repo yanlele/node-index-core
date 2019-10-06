@@ -41,6 +41,8 @@ const main = () => {
   try {
     fileData = readFileSync(fileHtmlPath, 'utf8');
     const $: CheerioStatic = load(fileData);
+
+    // console.log(`${host}${$('#fd_page_top > div > a.nxt').attr('href')}`);
     const tableList = $('#threadlisttableid');
     tableList.find('tbody').each((index, element) => {
       const keyWord = $(element)

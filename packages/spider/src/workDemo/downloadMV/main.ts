@@ -7,11 +7,14 @@ const host = 'https://www.sohux8b.club/';
 const keyWords = ['公告通知', undefined, null];
 
 export const downDetailUrl = async (page: Page, url) => {
+  console.log(`<${'='.repeat(50)}开始${'='.repeat(50)}>`);
+  console.log('调试跳转页面： ', url);
   await page.goto(url, {
-    timeout: 2 * 60 * 1000,
+    timeout: 10 * 60 * 1000,
   });
 
-  await page.waitFor(200);
+  console.log('跳转页面成功');
+  await page.waitFor(2000);
 
   await page.waitForSelector('#threadlisttableid');
 
@@ -36,6 +39,11 @@ export const downDetailUrl = async (page: Page, url) => {
       });
     }
   });
-
   console.log('保存数据成功');
+  console.log();
+
+  const nextUrl = `${host}${$('#fd_page_top > div > a.nxt').attr('href')}`;
+  if (nextUrl) {
+    await downDetailUrl(page, nextUrl);
+  }
 };

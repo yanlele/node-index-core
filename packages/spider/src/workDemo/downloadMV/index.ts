@@ -8,9 +8,13 @@ const mainSpider = async () => {
   const browser: Browser = await launch(initConfig);
 
   const page = await handleCreatePage(browser);
-  const startUrl = `${host}forum-798-1.html`;
+  const startUrl = `${host}forum-798-328.html`;
 
-  await downDetailUrl(page, startUrl);
+  try {
+    await downDetailUrl(page, startUrl);
+  } catch (e) {
+    await browser.close();
+  }
 
   await browser.close();
 };
