@@ -48,13 +48,13 @@ export const downDetailUrl = async (page: Page, url) => {
 
   const nextUrl = `${host}${$('#fd_page_top > div > a.nxt').attr('href')}`;
 
-  if (timer >= 150) {
-    return {page, nextUrl};
+  if (timer >= 125) {
+    return nextUrl;
   }
 
   if (nextUrl) {
-    await downDetailUrl(page, nextUrl);
+    return  await downDetailUrl(page, nextUrl);
   } else {
-    return {};
+    return;
   }
 };
