@@ -31,7 +31,9 @@ export const getDetailInfo = async (page: Page) => {
   if (isEmpty(info)) return;
 
   try {
-    await page.goto(info.detail_url);
+    await page.goto(info.detail_url, {
+      timeout: 5 * 60 * 1000,
+    });
     await page.waitFor(500);
 
 
@@ -46,7 +48,7 @@ export const getDetailInfo = async (page: Page) => {
 
     const a = $('a').filter((index, element) => {
       const href = $(element).attr('href');
-      return isString(href) && (!href.includes('&nothumb=yes') && href.includes('forum.php?mod=attachment&aid='))
+      return isString(href) && (!href.includes('&nothumb=yes') && href.includes('forum.php?mod=attachment&aid='));
     });
     const downloadUrl = `${host}${a.attr('href')}`;
 
@@ -64,7 +66,7 @@ export const getDetailInfo = async (page: Page) => {
       [lookOver, reply, downloadUrl, info.id],
     );
   } catch (e) {
-    console.log(e)
+    console.log(e);
   }
 
   return await getDetailInfo(page);
