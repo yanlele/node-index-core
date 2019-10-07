@@ -4,11 +4,16 @@ import { downDetailUrl } from './main';
 
 const host = 'https://www.sohux8b.club/';
 
-const handleCallback = async (page: Page, startUrl) => {
+/**
+ * 获取列表数据
+ * @param page
+ * @param startUrl
+ */
+const handleDownDetailUrlCallback = async (page: Page, startUrl) => {
   const nextUrl = await downDetailUrl(page, startUrl);
 
   if (nextUrl) {
-    return await handleCallback(page, nextUrl);
+    return await handleDownDetailUrlCallback(page, nextUrl);
   } else {
     return;
   }
@@ -21,7 +26,7 @@ const mainSpider = async () => {
   const startUrl = `${host}forum-798-1.html`;
 
   try {
-    await handleCallback(page, startUrl);
+    await handleDownDetailUrlCallback(page, startUrl);
 
   } catch (e) {
     await browser.close();
