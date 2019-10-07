@@ -1,8 +1,10 @@
-import { get } from 'lodash';
-
-import { query } from '../../utils/mysql';
+import { get, isEmpty, isString } from 'lodash';
 import { Page } from 'puppeteer';
 import { load } from 'cheerio';
+import { pool, query } from '../../utils/mysql';
+
+import { downDetailUrl } from './main';
+import { host } from './index';
 
 export interface RowItem {
   id: number;
@@ -16,17 +18,19 @@ export interface RowItem {
 
 
 export const getDetailInfoUrl = async () => {
-  const row = await query(`select * from store where isnull(download_url) limit 1`, []);
+  const row = await query(`select * from store where isnull(download_url) or download_url = '' limit 1`, []);
 
   const currentRowInfo: RowItem = get(row, 0, {});
 
-  return currentRowInfo.detail_url;
+  return currentRowInfo;
 };
 
 export const getDetailInfo = async (page: Page) => {
-  const url = await getDetailInfoUrl();
+  const info: RowItem = await getDetailInfoUrl();
 
-  await page.goto(url);
+  if (isEmpty(info)) return;
+
+  await page.goto(info.detail_url);
   await page.waitFor(500);
 
 
@@ -38,9 +42,30 @@ export const getDetailInfo = async (page: Page) => {
   const lookOver = $('#postlist > table:nth-child(1) > tbody > tr > td.pls.ptn.pbn > div > span:nth-child(2)').text();
   const reply = $('#postlist > table:nth-child(1) > tbody > tr > td.pls.ptn.pbn > div > span:nth-child(5)').text();
 
-  console.log(lookOver);
-  console.log(reply);
 
+  const a = $('a').filter((index, element) => {
+    const href = $(element).attr('href');
+    return isString(href) && (!href.includes('&nothumb=yes') && href.includes('forum.php?mod=attachment&aid='))
+  });
+  const downloadUrl = `${host}${a.attr('href')}`;
 
+  console.log(`<${'='.repeat(50)}${'='.repeat(50)}>`);
+  console.log('info: ', info);
+  console.log('阅读量 - lookOver： ', lookOver);
+  console.log('回复量 - reply： ', reply);
+  console.log('下载链接： ', downloadUrl);
+  console.log(`<${'='.repeat(50)}${'='.repeat(50)}>`);
+  console.log();
+
+  try {
+    await query(
+      `update store set look_over = ?, reply = ?, download_url = ? where id = ?`,
+      [lookOver, reply, downloadUrl, info.id],
+    );
+  } catch (e) {
+    console.log(e)
+  }
+
+  return await getDetailInfo(page);
 };
 

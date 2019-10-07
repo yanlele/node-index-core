@@ -2,9 +2,11 @@ import { Browser, launch } from 'puppeteer';
 import { resolve } from 'path';
 import { readFileSync, writeFile } from 'fs';
 import { load } from 'cheerio';
+import { isString } from 'lodash';
+
 import { handleCreatePage, initConfig } from '../../config';
 
-const fileHtmlPath = resolve(__dirname, './tempDownload/tempFirstPage.html');
+const fileHtmlPath = resolve(__dirname, './tempDownload/tempDetail.html');
 
 const host = 'https://www.sohux8b.club/';
 
@@ -15,13 +17,13 @@ const mainSpider = async () => {
 
   const page = await handleCreatePage(browser);
 
-  await page.goto(`${host}forum-798-1.html`, {
+  await page.goto(`https://www.sohux8b.club/thread-13206942-1-1.html`, {
     timeout: 2 * 60 * 1000,
   });
 
   await page.waitFor(200);
 
-  await page.waitForSelector('#threadlisttableid');
+  await page.waitForSelector('#ct');
 
   const htmlString: string = await page.evaluate(() => document.body.innerHTML);
 
@@ -42,27 +44,17 @@ const main = () => {
     fileData = readFileSync(fileHtmlPath, 'utf8');
     const $: CheerioStatic = load(fileData);
 
-    // console.log(`${host}${$('#fd_page_top > div > a.nxt').attr('href')}`);
-    const tableList = $('#threadlisttableid');
-    tableList.find('tbody').each((index, element) => {
-      const keyWord = $(element)
-        .find('tr:nth-child(1) > th > em > a')
-        .text();
 
-      if (keyWord && !keyWords.includes(keyWord)) {
-        const getCurrentTr = $(element).find('tr:nth-child(1) > th');
-        const currentTarget = getCurrentTr.find('a.xst');
-
-        console.log(`<${'='.repeat(50)}${'='.repeat(50)}>`);
-        console.log(keyWord);
-        console.log(currentTarget.text());
-        console.log(`${host}${currentTarget.attr('href')}`);
-        console.log(`<${'='.repeat(50)}${'='.repeat(50)}>`);
-      }
+    const a = $('a').filter((index, element) => {
+      const href = $(element).attr('href');
+      return isString(href) && (!href.includes('&nothumb=yes') && href.includes('forum.php?mod=attachment&aid='))
     });
+    console.log(a.attr('href'))
+
   } catch (e) {
-    mainSpider();
+    console.log(e);
   }
 };
 
 main();
+// mainSpider();
