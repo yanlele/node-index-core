@@ -1,11 +1,13 @@
 import { createPool } from 'mysql';
 
-const pool = createPool({
+export const pool = createPool({
   host: '192.168.205.10',
   database: 'spider1',
   user: 'root',
   password: '123456'
 });
+
+
 
 export const query = (sql, values) => new Promise((resolve, reject) => {
   pool.getConnection(function (err, connection) {
@@ -13,16 +15,15 @@ export const query = (sql, values) => new Promise((resolve, reject) => {
       resolve(err)
     } else {
       connection.query(sql, values, (err, rows) => {
-
         if (err) {
           reject(err)
         } else {
-          resolve(rows)
+          resolve(rows);
         }
         connection.release()
-      })
+      });
     }
-  })
+  });
 });
 
 
