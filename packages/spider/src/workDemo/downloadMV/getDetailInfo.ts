@@ -1,9 +1,8 @@
 import { get, isEmpty, isString } from 'lodash';
 import { Page } from 'puppeteer';
 import { load } from 'cheerio';
-import { pool, query } from '../../utils/mysql';
+import { query } from '../../utils/mysql';
 
-import { downDetailUrl } from './main';
 import { host } from './index';
 
 export interface RowItem {
@@ -16,6 +15,7 @@ export interface RowItem {
   reply: number;
 }
 
+let timer = 0;
 
 export const getDetailInfoUrl = async () => {
   const row = await query(`select * from store where isnull(download_url) or download_url = '' limit 1`, []);
@@ -27,8 +27,12 @@ export const getDetailInfoUrl = async () => {
 
 export const getDetailInfo = async (page: Page) => {
   const info: RowItem = await getDetailInfoUrl();
-
-  if (isEmpty(info)) return;
+  timer++;
+  console.log('timer - ', timer);
+  if (isEmpty(info) || timer >= 120) {
+    timer = 0;
+    return info.detail_url;
+  }
 
   try {
     await page.goto(info.detail_url, {
