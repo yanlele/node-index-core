@@ -8,13 +8,13 @@ const keyWords = ['公告通知', undefined, null];
 
 export const downDetailUrl = async (page: Page, url) => {
   console.log(`<${'='.repeat(50)}开始${'='.repeat(50)}>`);
-  console.log('调试跳转页面： ', url);
+  console.log('开始跳转页面： ', url);
   await page.goto(url, {
     timeout: 10 * 60 * 1000,
   });
 
   console.log('跳转页面成功');
-  await page.waitFor(2000);
+  await page.waitFor(1000);
 
   await page.waitForSelector('#threadlisttableid');
 
@@ -40,6 +40,7 @@ export const downDetailUrl = async (page: Page, url) => {
     }
   });
   console.log('保存数据成功');
+  console.log(`<${'='.repeat(50)}当前这条信息结束${'='.repeat(50)}>`);
   console.log();
 
   const nextUrl = `${host}${$('#fd_page_top > div > a.nxt').attr('href')}`;
