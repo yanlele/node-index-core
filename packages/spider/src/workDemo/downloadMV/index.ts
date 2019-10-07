@@ -1,6 +1,7 @@
 import { Browser, launch, Page } from 'puppeteer';
 import { handleCreatePage, initConfig } from '../../config';
 import { downDetailUrl } from './main';
+import { getDetailInfo } from './getDetailInfo';
 
 const host = 'https://www.sohux8b.club/';
 
@@ -26,8 +27,8 @@ const mainSpider = async () => {
   const startUrl = `${host}forum-798-1.html`;
 
   try {
-    await handleDownDetailUrlCallback(page, startUrl);
-
+    // await handleDownDetailUrlCallback(page, startUrl);
+    await getDetailInfo(page);
   } catch (e) {
     await browser.close();
   }

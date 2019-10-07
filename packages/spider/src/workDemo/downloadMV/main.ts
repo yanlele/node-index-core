@@ -53,7 +53,7 @@ export const downDetailUrl = async (page: Page, url) => {
   }
 
   if (nextUrl) {
-    return  await downDetailUrl(page, nextUrl);
+    return await downDetailUrl(page, nextUrl);
   } else {
     return;
   }
