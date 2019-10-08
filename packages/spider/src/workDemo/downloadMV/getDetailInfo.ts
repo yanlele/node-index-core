@@ -54,7 +54,8 @@ export const getDetailInfo = async (page: Page) => {
       const href = $(element).attr('href');
       return isString(href) && (!href.includes('&nothumb=yes') && href.includes('forum.php?mod=attachment&aid='));
     });
-    const downloadUrl = `${host}${a.attr('href')}`;
+
+    const downloadUrl = a.attr('href') ? `${host}${a.attr('href')}` : '-';
 
     console.log(`<${'='.repeat(50)}${'='.repeat(50)}>`);
     console.log('info: ', info);
