@@ -4,6 +4,7 @@ import { load } from 'cheerio';
 import { query } from '../../utils/mysql';
 
 import { host } from './index';
+import { tco } from './utils';
 
 export interface RowItem {
   id: number;
@@ -25,21 +26,16 @@ export const getDetailInfoUrl = async () => {
   return currentRowInfo;
 };
 
-export const getDetailInfo = async (page: Page) => {
+export const getDetailInfo = tco(async (page: Page) => {
   const info: RowItem = await getDetailInfoUrl();
   timer++;
   console.log('timer - ', timer);
-  if (isEmpty(info) || timer >= 120) {
-    timer = 0;
-    return info.detail_url;
-  }
 
   try {
     await page.goto(info.detail_url, {
       timeout: 5 * 60 * 1000,
     });
     await page.waitFor(500);
-
 
     await page.waitForSelector('#ct');
     const htmlString: string = await page.evaluate(() => document.body.innerHTML);
@@ -48,7 +44,6 @@ export const getDetailInfo = async (page: Page) => {
 
     const lookOver = $('#postlist > table:nth-child(1) > tbody > tr > td.pls.ptn.pbn > div > span:nth-child(2)').text();
     const reply = $('#postlist > table:nth-child(1) > tbody > tr > td.pls.ptn.pbn > div > span:nth-child(5)').text();
-
 
     const a = $('a').filter((index, element) => {
       const href = $(element).attr('href');
@@ -65,15 +60,15 @@ export const getDetailInfo = async (page: Page) => {
     console.log(`<${'='.repeat(50)}${'='.repeat(50)}>`);
     console.log();
 
-
-    await query(
-      `update store set look_over = ?, reply = ?, download_url = ? where id = ?`,
-      [lookOver, reply, downloadUrl, info.id],
-    );
+    await query(`update store set look_over = ?, reply = ?, download_url = ? where id = ?`, [
+      lookOver,
+      reply,
+      downloadUrl,
+      info.id,
+    ]);
   } catch (e) {
     console.log(e);
   }
 
   return await getDetailInfo(page);
-};
-
+});
