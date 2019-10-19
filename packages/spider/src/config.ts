@@ -23,10 +23,15 @@ export const handleCreatePage = async browser => {
   // 过滤图片和css 文件
   await page.setRequestInterception(true);
   await page.on('request', async (interceptedRequest: Request) => {
-    if (interceptedRequest.url().includes('.html')) {
+    if (interceptedRequest.url().includes('forum.php?')) {
       await interceptedRequest.continue();
     } else {
       await interceptedRequest.abort();
+      // await interceptedRequest.respond({
+      //   status: 404,
+      //   contentType: 'text/plain',
+      //   body: 'Not Found!',
+      // });
     }
   });
 

@@ -22,15 +22,15 @@ export const host = 'https://www.sohux8b.club/';
 //   }
 // };
 
-const handleGetDetailInfoCallback = async (page: Page) => {
-  const nextUrl = await getDetailInfo(page);
-
-  if (nextUrl) {
-    return await handleGetDetailInfoCallback(page);
-  } else {
-    return;
-  }
-};
+// const handleGetDetailInfoCallback = async (page: Page) => {
+//   const nextUrl = await getDetailInfo(page);
+//
+//   if (nextUrl) {
+//     return await handleGetDetailInfoCallback(page);
+//   } else {
+//     return;
+//   }
+// };
 
 const mainSpider = async () => {
   const browser: Browser = await launch(initConfig);
@@ -39,7 +39,9 @@ const mainSpider = async () => {
 
   try {
     // await handleDownDetailUrlCallback(page, startUrl);
-    await handleGetDetailInfoCallback(page);
+
+    // 拿到详情页面的数据信息
+    await getDetailInfo(page);
     console.log('end');
   } catch (e) {
     await browser.close();
