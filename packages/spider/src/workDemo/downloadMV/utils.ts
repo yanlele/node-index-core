@@ -6,12 +6,12 @@ export const tco = (f: Function) => {
   let value;
   let action = false;
   let accumulated = [];
-  return (...args) => {
+  return async (...args) => {
     accumulated.push(args);
     if (!action) {
       action = true;
       while (accumulated.length) {
-        value = f.apply(this, accumulated.shift());
+        value = await f.apply(this, accumulated.shift());
       }
       action = false;
       return value;

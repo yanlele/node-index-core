@@ -31,6 +31,8 @@ export const getDetailInfo = tco(async (page: Page) => {
   timer++;
   console.log('timer - ', timer);
 
+  if (!info.detail_url) return;
+
   try {
     await page.goto(info.detail_url, {
       timeout: 5 * 60 * 1000,
