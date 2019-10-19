@@ -23,7 +23,8 @@ export const handleCreatePage = async browser => {
   // 过滤图片和css 文件
   await page.setRequestInterception(true);
   await page.on('request', async (interceptedRequest: Request) => {
-    if (interceptedRequest.url().includes('forum.php?')) {
+    const url = interceptedRequest.url();
+    if (url.includes('forum.php?') || url.includes('.html')) {
       await interceptedRequest.continue();
     } else {
       await interceptedRequest.abort();
