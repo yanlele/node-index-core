@@ -12,6 +12,8 @@ coverage/
 /build
 /coverage
 
+worker/
+
 # misc
 .DS_Store
 .env.local
@@ -22,6 +24,7 @@ coverage/
 .idea/
 /packages/**/*.js
 /packages/**/*.js.map
+!jest.config.js
 
 tempDownload/
 

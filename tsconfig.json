@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "module": "commonjs",
-    "target": "es5",
+    "target": "es6",
     "noImplicitAny": false,
     //在表达式和声明上有隐含的any类型时报错
     "moduleResolution": "node",
@@ -28,13 +28,16 @@
       "es7"
     ],
     "types": [
-      "node"
+      "node",
+      "@types/jest"
     ]
   },
   "include": [
     "packages/**/*"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "packages/**/*.spec.ts",
+    "packages/**/*.js"
   ]
 }
