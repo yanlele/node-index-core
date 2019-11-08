@@ -4,7 +4,7 @@ let timer = 0;
 const func = async () => {
   timer++;
   if (timer >= 10) {
-    return 'loop'
+    return 'loop';
   }
 
   return await func();

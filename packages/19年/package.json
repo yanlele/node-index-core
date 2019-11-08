@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint --ext .ts ./",
+    "prettier": "prettier --write \"**/*.?(ts|tsx|js|less|css|jsx|html|json)\"",
     "lint:fix": "yarn lint --fix"
   },
   "author": "",
