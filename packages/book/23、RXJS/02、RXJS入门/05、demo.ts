@@ -1,3 +1,6 @@
+/**
+ * 关于错误机制
+ */
 import { Observable } from 'rxjs';
 import { OnSubscribe } from './utils';
 
