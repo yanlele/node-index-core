@@ -28,7 +28,7 @@
   "homepage": "https://github.com/yanlele/node-index-core#readme",
   "husky": {
     "hooks": {
-      "pre-commit": "yarn type-check && lint-staged",
+      "pre-commit": "yarn lint-staged",
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   },
