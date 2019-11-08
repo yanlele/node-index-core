@@ -4,8 +4,31 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "prettier": "prettier --write",
+    "commit": "commit",
     "lint": "eslint --ext .ts ./",
     "lint:fix": "yarn lint --fix"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn type-check && lint-staged",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
+  },
+  "lint-staged": {
+    "**/*.{js,ts}": [
+      "yarn prettier",
+      "git add"
+    ],
+    "**/*.{ts,spec.js}": [
+      "eslint --fix",
+      "git add"
+    ]
   },
   "author": "",
   "license": "ISC",
