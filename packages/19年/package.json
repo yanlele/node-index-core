@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "prettier": "prettier --write \"**/*.?(ts|tsx|js|less|css|jsx|html|json)\"",
+    "lint": "eslint --ext .ts ./",
     "lint:fix": "yarn lint --fix"
   },
   "author": "",
