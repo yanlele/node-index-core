@@ -69,6 +69,7 @@
     "lerna": "^3.13.1",
     "lint-staged": "^8.1.5",
     "prettier": "^1.16.4",
+    "puppeteer": "^2.0.0",
     "ts-jest": "^24.1.0",
     "tsconfig": "^5.0.3",
     "tslint": "^5.15.0",

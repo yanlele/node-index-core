@@ -33,7 +33,7 @@
     ]
   },
   "exclude": [
-    "node_modules",
+    "node_modules/**/*.ts",
     "packages/**/*.spec.ts",
     "packages/**/*.js"
   ]
