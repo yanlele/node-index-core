@@ -1,5 +1,8 @@
+/**
+ * 简写的 subscribe
+ */
 import { Observable } from 'rxjs';
-import { OnSubscribe } from './utils';
+import { OnSubscribe } from '../utils';
 
 const { create } = Observable;
 
