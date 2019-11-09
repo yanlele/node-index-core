@@ -6,7 +6,7 @@ source$.subscribe(value => console.log(value));
 
 // promise 转为 observable
 const source2$ = from(
-  new Promise(resolve => resolve('hello world!'))
+  new Promise(resolve => resolve('hello world!!!!!!!'))
 );
 source2$.subscribe(value=>console.log(value));
 
