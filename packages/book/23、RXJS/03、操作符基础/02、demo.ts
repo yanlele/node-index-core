@@ -6,9 +6,9 @@ import { filter, map } from 'rxjs/operators';
 
 
 const source$ = of(1, 2, 3, 4, 5);
-const resouce$ = source$.pipe(
+const resource$ = source$.pipe(
   filter(x => x % 2 === 0),
   map(x => x * 2),
 );
 
-resouce$.subscribe(console.log);
+resource$.subscribe(console.log);
