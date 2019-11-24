@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://unpkg.com/rxjs/bundles/rxjs.umd.min.js"></script>
+    <title>Title</title>
+</head>
+<body>
+
+
+<script>
+  const { fromEvent, interval } = rxjs;
+  const { withLatestFrom } = rxjs.operators;
+
+  const click$ = fromEvent(document, 'click');
+  const handleTimer = interval(1000);
+  const result$ = click$.pipe(withLatestFrom(handleTimer));
+
+  result$.subscribe(value => console.log(value));
+
+</script>
+</body>
+</html>
