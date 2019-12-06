@@ -8,3 +8,11 @@ const ho$ = interval(1000).pipe(
 );
 
 ho$.subscribe(value => {console.log(value);});
+/*
+结果:
+0: 0
+0: 1
+0: 2
+0: 3
+.......
+* */
