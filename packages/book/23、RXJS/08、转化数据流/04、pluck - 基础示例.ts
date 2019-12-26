@@ -18,5 +18,4 @@ result$.subscribe(value => console.log(value));
 RxJS
 React
 React
-RxJS
 * */
