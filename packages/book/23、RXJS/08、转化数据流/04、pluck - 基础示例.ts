@@ -13,3 +13,10 @@ const result$ = source$.pipe(
 );
 
 result$.subscribe(value => console.log(value));
+/*
+结果：
+RxJS
+React
+React
+RxJS
+* */
