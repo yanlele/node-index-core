@@ -1,4 +1,6 @@
-export const createStore = <T>(initState: T) => {
+type Plan = <T>(state: T, action: string) => T;
+
+export const createStore = <T>(plan: Plan, initState: T) => {
   let state = initState;
 
   let listeners = [];
@@ -7,8 +9,8 @@ export const createStore = <T>(initState: T) => {
     listeners.push(listener);
   };
 
-  const changeState = (newState: T) => {
-    state = newState;
+  const changeState = (action: string) => {
+    state = plan(state, action);
     for (let i = 0; i < listeners.length; i++) {
       const listener = listeners[i];
       listener();
