@@ -1,11 +1,11 @@
-interface ActionType {
+export interface ActionType {
   type: string,
   payload?: any,
 }
 
 export type Reducer<T> = (state: T, action: ActionType) => T;
 
-export const createStore = <T>(reducer: Reducer<T>, initState: T) => {
+export const createStore = <T>(reducer: any, initState: T) => {
   let state = initState;
 
   let listeners = [];
