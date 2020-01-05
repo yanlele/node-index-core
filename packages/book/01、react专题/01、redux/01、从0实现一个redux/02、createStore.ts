@@ -1,6 +1,11 @@
-type Plan = <T>(state: T, action: string) => T;
+interface ActionType {
+  type: string,
+  payload?: any,
+}
 
-export const createStore = <T>(plan: Plan, initState: T) => {
+export type Plan<T> = (state: T, action: ActionType) => T;
+
+export const createStore = <T>(plan: Plan<T>, initState: T) => {
   let state = initState;
 
   let listeners = [];
@@ -9,7 +14,7 @@ export const createStore = <T>(plan: Plan, initState: T) => {
     listeners.push(listener);
   };
 
-  const changeState = (action: string) => {
+  const changeState = (action: ActionType) => {
     state = plan(state, action);
     for (let i = 0; i < listeners.length; i++) {
       const listener = listeners[i];
