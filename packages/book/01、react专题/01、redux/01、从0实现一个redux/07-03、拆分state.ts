@@ -24,7 +24,7 @@ const counterReducer: Reducer<InitState> = (state = initState, action) => {
   }
 };
 
-const store = createStore(counterReducer);
+const store = createStore<InitState>(counterReducer);
 console.dir(store.getState());
 
 store.dispatch({
