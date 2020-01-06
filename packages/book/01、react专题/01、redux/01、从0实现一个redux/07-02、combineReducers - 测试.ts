@@ -1,5 +1,5 @@
 import { ActionType, createStore, Reducer } from './06、createStore';
-import { combineReducers } from './07、combineReducers';
+import { combineReducers } from './07-01、combineReducers';
 
 const counterReducer = (state, action: ActionType) => {
   switch (action.type) {
@@ -40,8 +40,8 @@ const reducer: Reducer<any> = combineReducers({
 });
 
 interface InitState {
-  counter: {count: number},
-  info: {name: string, description: string}
+  counter: { count: number };
+  info: { name: string; description: string };
 }
 
 const state: InitState = {
@@ -69,6 +69,6 @@ store.dispatch({
 store.dispatch({
   type: 'SET_NAME',
   payload: {
-    name: '前端九部2号',
+    name: 'yanle2号',
   },
 });
