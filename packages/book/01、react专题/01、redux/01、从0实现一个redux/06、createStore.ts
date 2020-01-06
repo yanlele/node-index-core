@@ -5,7 +5,7 @@ export interface ActionType {
 
 export type Reducer<T> = (state: T, action: ActionType) => T;
 
-export const createStore = <T>(reducer: any, initState: T) => {
+export const createStore = <T>(reducer: Reducer<T>, initState: T) => {
   let state = initState;
 
   let listeners = [];

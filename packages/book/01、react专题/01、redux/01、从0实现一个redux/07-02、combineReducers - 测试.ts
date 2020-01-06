@@ -1,4 +1,4 @@
-import { ActionType, createStore } from './06、createStore';
+import { ActionType, createStore, Reducer } from './06、createStore';
 import { combineReducers } from './07、combineReducers';
 
 const counterReducer = (state, action: ActionType) => {
@@ -27,14 +27,14 @@ const InfoReducer = (state, action) => {
     case 'SET_DESCRIPTION':
       return {
         ...state,
-        description: action.description,
+        description: action.payload.description,
       };
     default:
       return state;
   }
 };
 
-const reducer = combineReducers({
+const reducer: Reducer<any> = combineReducers({
   counter: counterReducer,
   info: InfoReducer,
 });
@@ -54,7 +54,7 @@ const state: InitState = {
   },
 };
 
-let store = createStore<InitState>(reducer, state);
+const store = createStore<InitState>(reducer, state);
 
 store.subscribe(() => {
   let state = store.getState();
