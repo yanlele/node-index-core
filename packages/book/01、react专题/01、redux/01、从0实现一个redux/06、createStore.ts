@@ -1,11 +1,11 @@
 export interface ActionType {
-  type: string,
+  type: string | symbol,
   payload?: any,
 }
 
 export type Reducer<T> = (state: T, action: ActionType) => T;
 
-export const createStore = <T>(reducer: Reducer<T>, initState: T) => {
+export const createStore = <T>(reducer: Reducer<T>, initState?: T) => {
   let state = initState;
 
   let listeners = [];
@@ -23,6 +23,8 @@ export const createStore = <T>(reducer: Reducer<T>, initState: T) => {
   };
 
   const getState = () => state;
+
+  dispatch({ type: Symbol() });
 
   return {
     subscribe,
