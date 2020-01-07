@@ -1,11 +1,14 @@
 export interface ActionType {
-  type: string | symbol,
-  payload?: any,
+  type: string | symbol;
+  payload?: any;
 }
 
 export type Reducer<T> = (state: T, action: ActionType) => T;
 
-export const createStore = <T>(reducer: Reducer<T>, initState?: T) => {
+export const createStore = <T>(reducer: Reducer<T>, initState?: T, rewriteCreateStore?) => {
+  // 如果有 rewriteCreateStoreFunc，那就采用新的 createStore
+  if (rewriteCreateStore) rewriteCreateStore(createStore);
+
   let state = initState;
 
   let listeners = [];
