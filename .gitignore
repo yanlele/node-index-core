@@ -25,6 +25,7 @@ worker/
 /packages/**/*.js
 /packages/**/*.js.map
 !jest.config.js
+!.eslintrc.js
 
 tempDownload/
 
