@@ -1,7 +1,11 @@
 import { ActionType, createStore, Reducer } from './06、createStore';
 import { combineReducers } from './07-01、combineReducers';
 
-const counterReducer = (state, action: ActionType) => {
+interface Counter {
+  count: number;
+}
+
+const counterReducer = (state: Counter, action: ActionType): Counter => {
   switch (action.type) {
     case 'INCREMENT':
       return {
@@ -17,7 +21,12 @@ const counterReducer = (state, action: ActionType) => {
   }
 };
 
-const InfoReducer = (state, action) => {
+interface InfoState {
+  name: string;
+  description: string;
+}
+
+const InfoReducer = (state: InfoState, action: ActionType): InfoState => {
   switch (action.type) {
     case 'SET_NAME':
       return {
@@ -34,15 +43,15 @@ const InfoReducer = (state, action) => {
   }
 };
 
+interface InitState {
+  counter: { count: number };
+  info: InfoState;
+}
+
 const reducer: Reducer<any> = combineReducers({
   counter: counterReducer,
   info: InfoReducer,
 });
-
-interface InitState {
-  counter: { count: number };
-  info: { name: string; description: string };
-}
 
 const state: InitState = {
   counter: {
@@ -57,7 +66,7 @@ const state: InitState = {
 const store = createStore<InitState>(reducer, state);
 
 store.subscribe(() => {
-  let state = store.getState();
+  const state = store.getState();
   console.log(state.counter.count, state.info.name, state.info.description);
 });
 /*自增*/
