@@ -1,11 +1,11 @@
 import { timer } from 'rxjs';
-import { map, mergeAll, take, tap, windowTime } from 'rxjs/operators';
+import { mergeAll, tap, windowTime } from 'rxjs/operators';
 
 const source$ = timer(0, 1000);
 const example$ = source$.pipe(
   windowTime(3000),
-  tap(()=> console.log('new window')),
-  mergeAll()
+  tap(() => console.log('new window')),
+  mergeAll(),
 );
 
 example$.subscribe(value => console.log(value));

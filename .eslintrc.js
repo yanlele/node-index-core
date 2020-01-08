@@ -4,9 +4,17 @@ module.exports = {
     ecmaFeatures: {
       jsx: true,
     },
+    project: './tsconfig.json',
   },
   plugins: ['@typescript-eslint'],
-  extends: ['plugin:@typescript-eslint/recommended', 'prettier', 'prettier/@typescript-eslint'],
+  extends: [
+    'prettier',
+    'prettier/@typescript-eslint',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:@typescript-eslint/eslint-recommended',
+    'plugin:@typescript-eslint/recommended-requiring-type-checking',
+    'plugin:prettier/recommended',
+  ],
   rules: {
     '@typescript-eslint/no-use-before-define': [2, { functions: false }],
     'no-unused-vars': 0,
@@ -17,14 +25,13 @@ module.exports = {
       },
     ],
     '@typescript-eslint/explicit-function-return-type': [
-      0,
+      2,
       {
         allowExpressions: true,
       },
     ],
     '@typescript-eslint/no-var-requires': 0,
-    '@typescript-eslint/no-triple-slash-reference': 1,
-    '@typescript-eslint/explicit-member-accessibility': 0,
+    '@typescript-eslint/explicit-member-accessibility': 2,
     camelcase: 0,
     '@typescript-eslint/camelcase': [
       1,
