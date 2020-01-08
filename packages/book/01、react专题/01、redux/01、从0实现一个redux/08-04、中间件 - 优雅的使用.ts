@@ -1,4 +1,4 @@
-export const applyMiddleware = (...middlewares) => oldCreateStore => (reducer, initState) => {
+export const applyMiddleware = (...middlewares: any[]) => (oldCreateStore: any) => (reducer: any, initState: any) => {
   const store = oldCreateStore(reducer, initState);
   const chain = middlewares.map(item => item(store));
   const dispatch = store.dispatch;

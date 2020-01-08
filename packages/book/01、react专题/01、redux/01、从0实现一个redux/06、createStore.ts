@@ -5,19 +5,29 @@ export interface ActionType {
 
 export type Reducer<T> = (state: T, action: ActionType) => T;
 
-export const createStore = <T>(reducer: Reducer<T>, initState?: T, rewriteCreateStore?) => {
+type Subscribe = (listener: Function) => void;
+type DispatchType = (action: ActionType) => void;
+type GetState<T> = () => T;
+
+interface CreateStoreReturn<T> {
+  subscribe: Subscribe;
+  dispatch: DispatchType;
+  getState: GetState<T>;
+}
+
+export const createStore = <T>(reducer: Reducer<T>, initState?: T, rewriteCreateStore?: any): CreateStoreReturn<T> => {
   // 如果有 rewriteCreateStoreFunc，那就采用新的 createStore
   if (rewriteCreateStore) rewriteCreateStore(createStore);
 
   let state = initState;
 
-  let listeners = [];
+  const listeners: Function[] = [];
 
-  const subscribe = listener => {
+  const subscribe = (listener: Function): void => {
     listeners.push(listener);
   };
 
-  const dispatch = (action: ActionType) => {
+  const dispatch = (action: ActionType): void => {
     state = reducer(state, action);
     for (let i = 0; i < listeners.length; i++) {
       const listener = listeners[i];
@@ -25,7 +35,7 @@ export const createStore = <T>(reducer: Reducer<T>, initState?: T, rewriteCreate
     }
   };
 
-  const getState = () => state;
+  const getState = (): T => state;
 
   dispatch({ type: Symbol() });
 
