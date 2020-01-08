@@ -6,10 +6,10 @@ export interface ActionType {
 export type Reducer<T> = (state: T, action: ActionType) => T;
 
 type Subscribe = (listener: Function) => void;
-type DispatchType = (action: ActionType) => void;
+export type DispatchType = (action: ActionType) => void;
 type GetState<T> = () => T;
 
-interface CreateStoreReturn<T> {
+export interface CreateStoreReturn<T> {
   subscribe: Subscribe;
   dispatch: DispatchType;
   getState: GetState<T>;
