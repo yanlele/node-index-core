@@ -46,4 +46,3 @@ store.dispatch = action => {
 store.dispatch({
   type: 'INCREMENT',
 });
-

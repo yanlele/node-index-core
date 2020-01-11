@@ -1,6 +1,6 @@
 interface ActionType {
-  type: string,
-  payload?: any,
+  type: string;
+  payload?: any;
 }
 
 export type Plan<T> = (state: T, action: ActionType) => T;
@@ -8,9 +8,9 @@ export type Plan<T> = (state: T, action: ActionType) => T;
 export const createStore = <T>(plan: Plan<T>, initState: T) => {
   let state = initState;
 
-  let listeners = [];
+  const listeners: Function[] = [];
 
-  const subscribe = listener => {
+  const subscribe = (listener: any) => {
     listeners.push(listener);
   };
 

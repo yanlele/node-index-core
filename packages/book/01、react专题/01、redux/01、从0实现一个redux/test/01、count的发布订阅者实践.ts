@@ -1,14 +1,14 @@
-let state = {
+const state = {
   count: 1,
 };
 
-let listeners = [];
+const listeners: Function[] = [];
 
-function subScribe(listener) {
+function subScribe(listener: Function) {
   listeners.push(listener);
 }
 
-function changeCount(count) {
+function changeCount(count: number) {
   state.count = count;
   for (let i = 0; i < listeners.length; i++) {
     const listener = listeners[i];

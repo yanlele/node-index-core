@@ -38,7 +38,7 @@ store.changeState({
 
 // 自减
 store.changeState({
-  type: 'DECREMENT'
+  type: 'DECREMENT',
 });
 
 /**
