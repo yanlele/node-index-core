@@ -7,7 +7,7 @@ class Main {
     this.myName = 'yanle';
   }
 
-  test: Func = async (name, age) => {
+  test = (name: string, age: number) => {
     console.log(this.myName);
     return `${name} - ${age}`;
   };

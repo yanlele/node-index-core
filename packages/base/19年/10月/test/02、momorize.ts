@@ -15,7 +15,7 @@ const memorize = (fn: Function) => {
 const params = [2, 4];
 const params2 = [3, 5];
 
-const functionMemoize = memorize(item => {
+const functionMemoize = memorize((item: any) => {
   const [one, two] = item;
   return one + two;
 });

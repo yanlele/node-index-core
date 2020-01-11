@@ -15,5 +15,5 @@ const movies = {
 };
 
 // 有问题的例子
-// const [firstMovieTitle] = movies;
-// console.log(firstMovieTitle); // => 'Heat'
+const [firstMovieTitle] = movies;
+console.log(firstMovieTitle); // => 'Heat'

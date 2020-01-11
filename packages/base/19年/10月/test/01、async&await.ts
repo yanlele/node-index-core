@@ -1,7 +1,7 @@
-const func1 = () => new Promise(resolve => resolve('func1'));
+// const func1 = () => new Promise(resolve => resolve('func1'));
 
 let timer = 0;
-const func = async () => {
+const func = async (): Promise<string | any> => {
   timer++;
   if (timer >= 10) {
     return 'loop';

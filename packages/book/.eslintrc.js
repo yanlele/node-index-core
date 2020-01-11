@@ -16,8 +16,9 @@ module.exports = {
     'plugin:prettier/recommended',
   ],
   rules: {
-    '@typescript-eslint/no-use-before-define': [2, { functions: false }],
+    'prefer-spread': 0,
     'no-unused-vars': 0,
+    '@typescript-eslint/no-use-before-define': [2, { functions: false }],
     '@typescript-eslint/no-unused-vars': [
       2,
       {

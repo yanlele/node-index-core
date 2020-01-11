@@ -26,13 +26,13 @@ module.exports = {
       },
     ],
     '@typescript-eslint/explicit-function-return-type': [
-      2,
+      1,
       {
         allowExpressions: true,
       },
     ],
     '@typescript-eslint/no-var-requires': 0,
-    '@typescript-eslint/explicit-member-accessibility': 2,
+    '@typescript-eslint/explicit-member-accessibility': 0,
     camelcase: 0,
     '@typescript-eslint/camelcase': [
       1,
