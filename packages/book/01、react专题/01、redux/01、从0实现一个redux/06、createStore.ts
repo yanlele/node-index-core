@@ -17,7 +17,8 @@ export interface CreateStoreReturn<T> {
 
 export const createStore = <T>(reducer: Reducer<T>, initState?: T, rewriteCreateStore?: any): CreateStoreReturn<T> => {
   // 如果有 rewriteCreateStoreFunc，那就采用新的 createStore
-  if (rewriteCreateStore) rewriteCreateStore(createStore);
+  // if (rewriteCreateStore) rewriteCreateStore(createStore);
+  if (rewriteCreateStore) rewriteCreateStore(createStore)(reducer, initState);
 
   let state = initState;
 
