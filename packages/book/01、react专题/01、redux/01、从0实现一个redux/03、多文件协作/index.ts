@@ -1,39 +1,41 @@
-import { createStore } from './redux/createStore';
-import reducer from './reducer';
+import { createState, combineReducers } from './redux';
+import counterReducer, { CounterState } from './reducers/counter';
+import infoReducer, { InfoState } from './reducers/info';
+
+const reducer = combineReducers({
+  counter: counterReducer,
+  info: infoReducer,
+});
 
 interface InitState {
-  count: 0;
+  counter: CounterState;
+  info: InfoState;
 }
 
 const initState: InitState = {
-  count: 0,
+  counter: {
+    count: 0,
+  },
+  info: {
+    name: 'yanle',
+    description: 'coding',
+  },
 };
 
-const store = createStore(reducer, initState);
+const store = createState<InitState>(reducer, initState);
 
-store.subscribe(() => console.log(store.getState()));
+store.subscribe(() => {
+  const state = store.getState();
+  console.log(`count: ${state.counter.count}; name: ${state.info.name}; description: ${state.info.description}`);
+});
 
 store.dispatch({
   type: 'INCREMENT',
 });
 
 store.dispatch({
-  type: 'DECREMENT',
+  type: 'SET_NAME',
+  name: 'yanlele',
 });
 
-store.dispatch({
-  type: 'DECREMENT',
-});
-
-store.dispatch({
-  type: 'DECREMENT',
-});
-
-console.log('store.getState', store.getState());
-
-// 这个是不会更改
-store.dispatch({
-  type: 'abc',
-});
-
-console.log('store.getState()', store.getState());
+console.log(store.getState());

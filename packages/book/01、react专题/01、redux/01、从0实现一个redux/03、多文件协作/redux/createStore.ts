@@ -1,14 +1,14 @@
 import { Reducer } from '../../test/06、createStore';
 
 type Subscribe = (listener: Function) => void;
-type Dispatch<T> = (action: Action<T>) => void;
+type Dispatch<T> = (action: Action) => void;
 type GetState<T> = () => T;
 
-export type Reducer<InitState> = (state: InitState, action: Action<InitState>) => InitState;
+export type Reducer<InitState> = (state: InitState, action: Action) => InitState;
 
-export interface Action<T> {
+export interface Action {
   type: string;
-  payload?: T;
+  [key: string]: any;
 }
 
 type CreateStore = <T>(
@@ -20,7 +20,7 @@ type CreateStore = <T>(
   getState: GetState<T>;
 };
 
-export const createStore: CreateStore = <T>(reducer: Reducer<T>, initState: T) => {
+const createStore: CreateStore = <T>(reducer: Reducer<T>, initState: T) => {
   let state = initState;
   const listeners: Function[] = [];
 
@@ -43,3 +43,5 @@ export const createStore: CreateStore = <T>(reducer: Reducer<T>, initState: T) =
     getState,
   };
 };
+
+export default createStore;
