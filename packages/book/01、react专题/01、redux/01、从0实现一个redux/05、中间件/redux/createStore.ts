@@ -1,10 +1,8 @@
-import { Reducer } from '../../test/06、createStore';
+import { Reducer } from '../../redux';
 
 type Subscribe = (listener: Function) => void;
 type Dispatch<T> = (action: Action) => void;
 type GetState<T> = () => T;
-
-export type Reducer<InitState> = (state: InitState, action: Action) => InitState;
 
 export interface Action {
   type: string | symbol;

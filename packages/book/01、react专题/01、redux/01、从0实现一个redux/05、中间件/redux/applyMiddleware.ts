@@ -1,6 +1,10 @@
 import { CreateStore } from './createStore';
+import { Reducer } from '../../redux';
 
-const applyMiddleware = (...middleWares: Function[]) => (createStore: CreateStore) => (reducer, initState) => {
+const applyMiddleware = (...middleWares: Function[]) => (createStore: CreateStore) => (
+  reducer: Reducer,
+  initState: any,
+) => {
   const store = createStore(reducer, initState);
   const chain = middleWares.map(middleware => middleware(store));
   let dispatch = store.dispatch;
