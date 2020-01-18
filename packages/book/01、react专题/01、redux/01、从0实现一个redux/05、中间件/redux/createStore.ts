@@ -13,7 +13,7 @@ export interface Action {
 
 type Middleware = (createStore: CreateStore) => CreateStore;
 
-type CreateStore = <T>(
+export type CreateStore = <T>(
   reducer: Reducer<T>,
   initState?: T,
   middleware?: Middleware,
