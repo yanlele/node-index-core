@@ -1,25 +1,24 @@
 import { Reducer } from '../../redux';
 
 type Subscribe = (listener: Function) => void;
-type Dispatch<T> = (action: Action) => void;
+export type Dispatch<T = any> = (action: Action) => void;
 type GetState<T> = () => T;
 
 export interface Action {
   type: string | symbol;
+
   [key: string]: any;
 }
 
 type Middleware = (createStore: CreateStore) => CreateStore;
 
-export type CreateStore = <T>(
-  reducer: Reducer<T>,
-  initState?: T,
-  middleware?: Middleware,
-) => {
+export interface Store<T = any> {
   subscribe: Subscribe;
   dispatch: Dispatch<T>;
   getState: GetState<T>;
-};
+}
+
+export type CreateStore = <T>(reducer: Reducer<T>, initState?: T, middleware?: Middleware) => Store<T>;
 
 const createStore: CreateStore = <T>(reducer: Reducer<T>, initState: T, middleware: Middleware) => {
   let state = initState;
