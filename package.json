@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "prettier": "prettier --write",
-    "commit": "commit",
+    "commit": "git add . && commit",
     "type-check": "tsc",
     "preview": "lerna run preview --stream --scope",
     "lint": "lerna run --parallel lint"
