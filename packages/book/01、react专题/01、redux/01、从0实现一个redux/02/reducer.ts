@@ -9,12 +9,12 @@ const reducer = (state: InitState, action: Action<Partial<InitState>>): InitStat
     case 'INCREMENT':
       return {
         ...state,
-        count: state.count + 1,
+        count: ++state.count,
       };
     case 'DECREMENT':
       return {
         ...state,
-        count: state.count - 1,
+        count: --state.count,
       };
     default:
       return state;

@@ -1,47 +1,39 @@
 import { createStore } from './redux/createStore';
+import reducer from './reducer';
 
 interface InitState {
-  counter: {
-    count: number;
-  };
-  info: {
-    name: string;
-    description: string;
-  };
+  count: 0;
 }
 
 const initState: InitState = {
-  counter: {
-    count: 0,
-  },
-  info: {
-    name: '',
-    description: '',
-  },
+  count: 0,
 };
 
-const store = createStore<InitState>(initState);
-store.subscribe(() => {
-  const state = store.getState();
-  console.log(`${state.info.name}: ${state.info.description}`);
+const store = createStore(reducer, initState);
+
+store.subscribe(() => console.log(store.getState()));
+
+store.dispatch({
+  type: 'INCREMENT',
 });
 
-store.subscribe(() => {
-  const state = store.getState();
-  console.log(state.counter.count);
+store.dispatch({
+  type: 'DECREMENT',
 });
 
-store.changeState({
-  ...store.getState(),
-  info: {
-    name: 'yanle',
-    description: '我是兔子',
-  },
+store.dispatch({
+  type: 'DECREMENT',
 });
 
-store.changeState({
-  ...store.getState(),
-  counter: {
-    count: 1,
-  },
+store.dispatch({
+  type: 'DECREMENT',
 });
+
+console.log('store.getState', store.getState());
+
+// 这个是不会更改
+store.dispatch({
+  type: 'abc',
+});
+
+console.log('store.getState()', store.getState());
