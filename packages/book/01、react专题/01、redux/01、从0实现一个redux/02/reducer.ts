@@ -4,7 +4,7 @@ interface InitState {
   count: number;
 }
 
-const reducer = (state: InitState, action: Action<Partial<InitState>>) => {
+const reducer = (state: InitState, action: Action<Partial<InitState>>): InitState => {
   switch (action.type) {
     case 'INCREMENT':
       return {
