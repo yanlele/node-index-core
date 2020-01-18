@@ -26,6 +26,9 @@ export const getDetailInfoUrl = async () => {
   return currentRowInfo;
 };
 
+/**
+ * 获取详情页面数据
+ */
 export const getDetailInfo = tco(async (page: Page) => {
   const info: RowItem = await getDetailInfoUrl();
   timer++;
@@ -62,12 +65,7 @@ export const getDetailInfo = tco(async (page: Page) => {
     console.log(`<${'='.repeat(50)}${'='.repeat(50)}>`);
     console.log();
 
-    await query(`update store set look_over = ?, reply = ?, download_url = ? where id = ?`, [
-      lookOver,
-      reply,
-      downloadUrl,
-      info.id,
-    ]);
+    await query(`update store set look_over = ?, reply = ?, download_url = ? where id = ?`, [lookOver, reply, downloadUrl, info.id]);
   } catch (e) {
     console.log(e);
   }

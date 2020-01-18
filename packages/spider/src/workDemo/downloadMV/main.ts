@@ -6,8 +6,11 @@ const host = 'https://www.sohux8b.club/';
 
 const keyWords = ['公告通知', undefined, null];
 
+/**
+ * 获取列表页面数据
+ */
 let timer = 0;
-export const downDetailUrl = async (page: Page, url) => {
+export const downDetailUrl = async (page: Page, url: string): Promise<any> => {
   timer++;
 
   console.log(`<${'='.repeat(50)}开始${'='.repeat(50)}>`);
@@ -26,7 +29,7 @@ export const downDetailUrl = async (page: Page, url) => {
   const $: CheerioStatic = load(htmlString);
   const tableList = $('#threadlisttableid');
 
-  await tableList.find('tbody').each(async (index, element) => {
+  tableList.find('tbody').each(async (index, element) => {
     const keyWord = $(element)
       .find('tr:nth-child(1) > th > em > a')
       .text();
