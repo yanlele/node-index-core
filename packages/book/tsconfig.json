@@ -32,6 +32,9 @@
       "@types/jest"
     ]
   },
+  "include": [
+    "book/**/*"
+  ],
   "exclude": [
     "node_modules/**/*.ts",
     "packages/**/*.spec.ts",
