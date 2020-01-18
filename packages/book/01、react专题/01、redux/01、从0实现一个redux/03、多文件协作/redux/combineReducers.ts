@@ -1,9 +1,9 @@
-import { Reducer } from '../../test/06、createStore';
+import { CombinedState, Reducer, ReducersMapObject } from '../../redux';
 
-type CombineReducers<T> = (reducers: { [key: string]: Reducer<Partial<T>> }) => Reducer<T>;
+type CombineReducers<S> = (reducers: ReducersMapObject<S, any>) => Reducer<CombinedState<S>>;
 
 const combineReducers: CombineReducers<any> = reducers => (state, action) => {
-  const nextState: { [key: string]: any } = {};
+  const nextState: CombinedState<any> = {};
   Object.keys(reducers).forEach((key: string) => {
     nextState[key] = reducers[key](state[key], action);
   });

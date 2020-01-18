@@ -4,9 +4,9 @@ type Subscribe = (listener: Function) => void;
 type Dispatch<T> = (action: Action<T>) => void;
 type GetState<T> = () => T;
 
-export type Redurce = <InitState>(state: InitState, action: Action<Partial<InitState>>) => InitState;
+export type Reducer<InitState> = (state: InitState, action: Action<InitState>) => InitState;
 
-export interface Action<T extends {}> {
+export interface Action<T> {
   type: string;
   payload?: T;
 }
