@@ -11,6 +11,7 @@ const infoState: InfoState = {
 };
 
 const infoReducer: Reducer = (state: InfoState = infoState, action) => {
+  if (!state) state = infoState;
   switch (action.type) {
     case 'SET_NAME':
       return {

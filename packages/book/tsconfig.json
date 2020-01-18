@@ -33,7 +33,9 @@
     ]
   },
   "include": [
-    "book/**/*"
+    "01、react专题/**/*",
+    "04、设计模式/**/*",
+    "23、RXJS/**/*"
   ],
   "exclude": [
     "node_modules/**/*.ts",

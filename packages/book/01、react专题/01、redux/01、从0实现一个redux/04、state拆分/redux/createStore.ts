@@ -7,13 +7,13 @@ type GetState<T> = () => T;
 export type Reducer<InitState> = (state: InitState, action: Action) => InitState;
 
 export interface Action {
-  type: string;
+  type: string | symbol;
   [key: string]: any;
 }
 
 type CreateStore = <T>(
   reducer: Reducer<T>,
-  initState: T,
+  initState?: T,
 ) => {
   subscribe: Subscribe;
   dispatch: Dispatch<T>;
@@ -34,6 +34,8 @@ const createStore: CreateStore = <T>(reducer: Reducer<T>, initState: T) => {
       listener();
     });
   };
+
+  dispatch({ type: Symbol() });
 
   const getState: GetState<T> = () => state;
 

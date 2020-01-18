@@ -12,17 +12,7 @@ interface InitState {
   info: InfoState;
 }
 
-const initState: InitState = {
-  counter: {
-    count: 0,
-  },
-  info: {
-    name: 'yanle',
-    description: 'coding',
-  },
-};
-
-const store = createState<InitState>(reducer, initState);
+const store = createState<InitState>(reducer);
 
 store.subscribe(() => {
   const state = store.getState();

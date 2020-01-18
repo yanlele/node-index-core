@@ -8,7 +8,8 @@ const initState: CounterState = {
   count: 0,
 };
 
-const conterReducer: Reducer = (state: CounterState = initState, action) => {
+const counterReducer: Reducer = (state: CounterState = initState, action) => {
+  if (!state) state = initState;
   switch (action.type) {
     case 'INCREMENT':
       return {
@@ -25,4 +26,4 @@ const conterReducer: Reducer = (state: CounterState = initState, action) => {
   }
 };
 
-export default conterReducer;
+export default counterReducer;
