@@ -1,12 +1,17 @@
 type Subscribe = (listener: Function) => void;
-type ChangeState<T> = (newState: T) => void;
+type Dispatch<T> = (newState: T) => void;
 type GetState<T> = () => T;
+
+export interface Action<T extends {}> {
+  type: string;
+  payload?: T;
+}
 
 type CreateStore = <T>(
   initState: T,
 ) => {
   subscribe: Subscribe;
-  changeState: ChangeState<T>;
+  dispatch: Dispatch<T>;
   getState: GetState<T>;
 };
 
@@ -18,7 +23,7 @@ export const createStore: CreateStore = <T>(initState: T) => {
     listeners.push(listener);
   };
 
-  const changeState: ChangeState<T> = newState => {
+  const dispatch: Dispatch<T> = newState => {
     state = newState;
     listeners.forEach(listener => {
       listener();
@@ -29,7 +34,7 @@ export const createStore: CreateStore = <T>(initState: T) => {
 
   return {
     subscribe,
-    changeState,
+    dispatch,
     getState,
   };
 };
