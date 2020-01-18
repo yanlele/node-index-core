@@ -11,18 +11,26 @@ export interface Action {
   [key: string]: any;
 }
 
+type Middleware = (createStore: CreateStore) => CreateStore;
+
 type CreateStore = <T>(
   reducer: Reducer<T>,
   initState?: T,
+  middleware?: Middleware,
 ) => {
   subscribe: Subscribe;
   dispatch: Dispatch<T>;
   getState: GetState<T>;
 };
 
-const createStore: CreateStore = <T>(reducer: Reducer<T>, initState: T) => {
+const createStore: CreateStore = <T>(reducer: Reducer<T>, initState: T, middleware: Middleware) => {
   let state = initState;
   const listeners: Function[] = [];
+
+  if (middleware) {
+    const newCreateStore = middleware(createStore);
+    return newCreateStore(reducer, initState);
+  }
 
   const subscribe: Subscribe = listener => {
     listeners.push(listener);
