@@ -1,22 +1,17 @@
-import { createState, combineReducers } from './redux';
-import counterReducer, { CounterState } from './reducers/counter';
-import infoReducer, { InfoState } from './reducers/info';
+import counterReducer from './reducers/counter';
+import { applyMiddleware, createStore, combineReducers } from './redux';
+import { exceptionMiddleware, loggerMiddleware, timeMiddleware } from './middlewares';
 
 const reducer = combineReducers({
   counter: counterReducer,
-  info: infoReducer,
 });
 
-interface InitState {
-  counter: CounterState;
-  info: InfoState;
-}
+const rewriteCreateStore = applyMiddleware(exceptionMiddleware, timeMiddleware, loggerMiddleware);
 
-const store = createState<InitState>(reducer);
+const store = createStore(reducer, {}, rewriteCreateStore);
 
 store.subscribe(() => {
-  const state = store.getState();
-  console.log(`count: ${state.counter.count}; name: ${state.info.name}; description: ${state.info.description}`);
+  console.log(store.getState().counter.count);
 });
 
 store.dispatch({
@@ -24,8 +19,7 @@ store.dispatch({
 });
 
 store.dispatch({
-  type: 'SET_NAME',
-  name: 'yanlele',
+  type: 'INCREMENT',
 });
 
 console.log(store.getState());
