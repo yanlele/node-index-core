@@ -42,3 +42,7 @@ export function combineReducers<S, A extends Action = AnyAction>(
 export function combineReducers<M extends ReducersMapObject<any, any>>(
   reducers: M,
 ): Reducer<CombinedState<StateFromReducersMapObject<M>>, ActionFromReducersMapObject<M>>;
+
+export interface Dispatch<A extends Action = AnyAction> {
+  <T extends A>(action: T): T;
+}
