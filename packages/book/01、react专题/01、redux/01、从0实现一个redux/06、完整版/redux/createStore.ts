@@ -11,7 +11,7 @@ export interface Action {
   [key: string]: any;
 }
 
-type Middleware = (createStore: CreateStore) => CreateStore;
+export type Middleware = (createStore: CreateStore | CreateStore[]) => CreateStore;
 
 export interface Store<T = any> {
   subscribe: Subscribe;
