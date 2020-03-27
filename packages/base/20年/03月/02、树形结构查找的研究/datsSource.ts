@@ -1,10 +1,10 @@
-interface Tree {
+export interface Tree {
   id: string;
   name: string;
-  children: Tree[];
+  children?: Tree[];
 }
 
-export const tree: Tree = [
+export const tree: Tree[] = [
   {
     id: '1',
     name: '教学素材管理',
