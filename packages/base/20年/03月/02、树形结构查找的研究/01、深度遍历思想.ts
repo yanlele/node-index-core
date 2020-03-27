@@ -20,5 +20,7 @@ const deepQuery = (tree: Tree[], id: string): Tree => {
   return retNode;
 };
 
+console.time();
 const node = deepQuery(tree, '10102');
+console.timeEnd();
 console.log(node);
