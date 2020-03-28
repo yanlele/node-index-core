@@ -1,6 +1,7 @@
 export interface Tree {
   id: string;
   name: string;
+  pid?: string;
   children?: Tree[];
 }
 
