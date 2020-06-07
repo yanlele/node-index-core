@@ -23,6 +23,8 @@ class MyPromise {
     };
 
     try {
+      // resolve, reject 实际上就是两个方法，
+      // 做的事情就是更新状态，返回值
       executor(resolve, reject);
     } catch (err) {
       reject(err);
@@ -31,7 +33,7 @@ class MyPromise {
 }
 
 /* ==============================  测试 - Start ============================== */
-const p1 = new MyPromise((resolve: any, reject: any) => {
+const p1 = new MyPromise((resolve: any) => {
   resolve(1);
 });
 
