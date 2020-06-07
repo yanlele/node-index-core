@@ -18,6 +18,7 @@ module.exports = {
   rules: {
     'prefer-spread': 0,
     'no-unused-vars': 0,
+    '@typescript-eslint/no-empty-function': ['error', { allow: ['constructors', 'arrowFunctions'] }],
     '@typescript-eslint/no-use-before-define': [2, { functions: false }],
     '@typescript-eslint/no-unused-vars': [
       2,
