@@ -1,5 +1,6 @@
 type Status = 'pending' | 'resolved' | 'rejected';
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 class MyPromise {
   private status: Status;
   private value: any = undefined;
@@ -22,6 +23,36 @@ class MyPromise {
     } catch (e) {
       reject(e);
     }
+  }
+
+  then(resolveFunction: Function, rejectFunction: Function) {
+    resolveFunction = (result: any) => result;
+    rejectFunction = (reason: any) => reason;
+    return new MyPromise((resolve: Function, reject: Function) => {
+      this.resolveArr.push((result: any) => {
+        try {
+          const x = resolveFunction(result);
+          if (x instanceof MyPromise) {
+            x.then(resolve, reject);
+            return;
+          }
+        } catch (e) {
+          reject(e);
+        }
+      });
+
+      this.rejectArr.push((reason: any) => {
+        try {
+          const x = rejectFunction(reason);
+          if (x instanceof MyPromise) {
+            x.then(resolve, reject);
+            return;
+          }
+        } catch (e) {
+          reject(e);
+        }
+      });
+    });
   }
 }
 
