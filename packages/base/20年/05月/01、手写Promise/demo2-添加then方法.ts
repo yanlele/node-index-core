@@ -57,3 +57,17 @@ class MyPromise {
 }
 
 export default {};
+
+/* ==============================  测试 - Start ============================== */
+// 这里其实什么都没有输出
+new MyPromise((resolve: Function) => {
+  resolve(1);
+}).then(
+  (res: number) => {
+    console.log(res, 'success');
+  },
+  (err: number) => {
+    console.log(err, 'error');
+  },
+);
+/* ==============================  测试 - End   ============================== */
