@@ -1,6 +1,5 @@
 type Status = 'pending' | 'resolved' | 'rejected';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 class MyPromise {
   status: Status;
   value: any;
