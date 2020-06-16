@@ -13,7 +13,7 @@ class MyPromise {
       this.status = status;
       this.value = value;
 
-      const fnArr = status === 'resolved' ? this.rejectArr : this.rejectArr;
+      const fnArr = status === 'resolved' ? this.resolveArr : this.rejectArr;
       fnArr.forEach(item => item(this.value));
     };
 
@@ -30,33 +30,27 @@ class MyPromise {
     return new MyPromise((resolve: Function, reject: Function) => {
       this.resolveArr.push((result: any) => {
         try {
-          const x = resolveFn(result); // 获取执行成功方法返回的结果
-
-          // 如果x是一个promise实例，则继续调用then方法 ==> then链的实现
+          const x = resolveFn(result);
           if (x instanceof MyPromise) {
             x.then(resolve, reject);
             return;
           }
-
-          // 不是promise实例，直接执行成功的方法
           resolve(x);
-        } catch (err) {
-          reject(err);
+        } catch (e) {
+          reject(e);
         }
       });
 
       this.rejectArr.push((reason: any) => {
         try {
           const x = rejectFn(reason);
-
           if (x instanceof MyPromise) {
             x.then(resolve, reject);
             return;
           }
-
           resolve(x);
-        } catch (err) {
-          reject(err);
+        } catch (e) {
+          reject(e);
         }
       });
     });
