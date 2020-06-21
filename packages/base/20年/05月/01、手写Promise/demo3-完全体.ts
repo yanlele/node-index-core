@@ -6,7 +6,7 @@ class MyPromise {
   resolveArr: Function[];
   rejectArr: Function[];
 
-  constructor(executor: (resolve: Function, reject: Function) => void) {
+  constructor(executor: (resolve?: Function, reject?: Function) => void) {
     this.status = 'pending'; // 初始化状态为pending
     this.value = undefined; // 初始化返回的成功的结果或者失败的原因
     this.resolveArr = []; // 初始化then中成功的方法
@@ -95,6 +95,47 @@ class MyPromise {
             reject(reason);
           });
       }
+    });
+  }
+
+  static race(promiseList: MyPromise[]): MyPromise {
+    return new MyPromise((resolve, reject) => {
+      promiseList.forEach(item => {
+        if (!(item instanceof MyPromise)) return;
+        item
+          .then((result: any) => {
+            resolve(result);
+          })
+          .catch((err: any) => {
+            reject(err);
+          });
+      });
+    });
+  }
+
+  static allSettled(promiseList: MyPromise[]): MyPromise {
+    return new MyPromise(resolve => {
+      const results: any[] = [];
+      for (let i = 0; i < promiseList.length; i++) {
+        const item = promiseList[i];
+        if (!(item instanceof MyPromise)) return;
+        item
+          .then((result: any) => {
+            results[i] = result;
+          })
+          .catch((reason: any) => {
+            results[i] = reason;
+          });
+        resolve(results);
+      }
+    });
+  }
+
+  done(resolveFn: Function, rejectFn: Function): void {
+    this.then(resolveFn, rejectFn).catch((reason: any) => {
+      setTimeout(() => {
+        throw reason;
+      }, 0);
     });
   }
 }
