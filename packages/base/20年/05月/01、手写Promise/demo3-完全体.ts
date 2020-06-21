@@ -42,6 +42,61 @@ class MyPromise {
       reject(e);
     }
   }
+
+  then(resolveFn?: Function, rejectFn?: Function): MyPromise {
+    if (!resolveFn) resolveFn = (result: any) => result;
+    if (!rejectFn) rejectFn = (reason: any) => reason;
+    return new MyPromise((resolve, reject) => {
+      this.resolveArr.push((result: any) => {
+        try {
+          const x = resolveFn(result);
+          if (x instanceof MyPromise) {
+            x.then(resolve, reject);
+            return;
+          }
+          resolve(x);
+        } catch (err) {
+          reject(err);
+        }
+      });
+      this.rejectArr.push((reason: any) => {
+        try {
+          const x = rejectFn(reason);
+          if (x instanceof MyPromise) {
+            x.then(reject, resolve);
+            return;
+          }
+          resolve(x);
+        } catch (err) {
+          reject(err);
+        }
+      });
+    });
+  }
+
+  catch(rejectFu: Function): MyPromise {
+    return this.then(null, rejectFu);
+  }
+
+  static all(promiseList: MyPromise[]): MyPromise {
+    return new MyPromise((resolve, reject) => {
+      let index = 0;
+      const results: any[] = [];
+      for (let i = 0; i < promiseList.length; i++) {
+        const item = promiseList[i];
+        if (!(item instanceof MyPromise)) return;
+        item
+          .then((result: any) => {
+            index++;
+            results[i] = result;
+            if (index === promiseList.length) resolve(results);
+          })
+          .catch((reason: any) => {
+            reject(reason);
+          });
+      }
+    });
+  }
 }
 
 /* ==============================  测试 - Start ============================== */
