@@ -12,43 +12,7 @@ class MyPromise {
     this.resolveArr = []; // 初始化then中成功的方法
     this.rejectArr = []; // 初始化then中失败的方法
 
-    const change = (status: Status, value: any) => {
-      if (this.status !== 'pending') return;
-      this.status = status;
-      this.value = value;
 
-      const fnArr = this.status === 'resolved' ? this.resolveArr : this.rejectArr;
-
-      fnArr.forEach(item => item(this.value));
-    };
-
-    const resolve = (result: any): void => {
-      if (this.resolveArr.length > 0) {
-        change('resolved', result);
-      }
-
-      const timer = setTimeout(() => {
-        change('resolved', result);
-        clearTimeout(timer);
-      });
-    };
-
-    const reject = (reason: any): void => {
-      if (this.rejectArr.length > 0) {
-        change('rejected', reason);
-      }
-
-      const timer = setTimeout(() => {
-        change('rejected', reason);
-        clearTimeout(timer);
-      });
-    };
-
-    try {
-      executor(resolve, reject);
-    } catch (e) {
-      reject(e);
-    }
   }
 }
 
