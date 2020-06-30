@@ -34,3 +34,7 @@ yarn-debug.log*
 yarn-error.log*
 yarn.lock
 package-lock.json
+
+
+!packages/base/20年/06月/01、理解ES6的 Iterator 、Iterable 、 Generator/04、functionIterrator.js
+!packages/base/20年/06月/01、理解ES6的 Iterator 、Iterable 、 Generator/05、functionIterrator.js
