@@ -16,7 +16,7 @@ export const initConfig = {
   },
 };
 
-export const handleCreatePage = async browser => {
+export const handleCreatePage = async (browser: any) => {
   const page = await browser.newPage();
   await page.setUserAgent(userAgent);
 

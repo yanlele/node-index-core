@@ -8,7 +8,8 @@
     "typeRoots": [
       "node_modules/@type",
       "typings/modules",
-      "node_modules"
+      "node_modules",
+      "typings/index.d.ts"
     ],
     "allowJs": true,
     "emitDecoratorMetadata": true,
@@ -33,7 +34,8 @@
     ]
   },
   "include": [
-    "packages/**/*"
+    "packages/**/*",
+    "typings/index.d.ts"
   ],
   "exclude": [
     "node_modules/",
