@@ -1,5 +1,5 @@
 import { Request } from 'puppeteer';
-import * as UserAgent from 'user-agents';
+import UserAgent from 'user-agents';
 
 const userAgent = new UserAgent({
   deviceCategory: 'desktop',
