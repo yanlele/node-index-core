@@ -35,7 +35,8 @@
   },
   "include": [
     "packages/**/*",
-    "typings/index.d.ts"
+    "typings/index.d.ts",
+    "packages/spider/index.d.ts"
   ],
   "exclude": [
     "node_modules/",
