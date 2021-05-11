@@ -27,7 +27,7 @@ module.exports = {
       },
     ],
     '@typescript-eslint/explicit-function-return-type': [
-      2,
+      1,
       {
         allowExpressions: true,
       },

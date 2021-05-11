@@ -1,6 +1,6 @@
 import { launch, Page } from 'puppeteer';
 
-const run = async (): Promise<void> => {
+const run = async () => {
   const browser = await launch({
     timeout: 15000,
     ignoreHTTPSErrors: true,
