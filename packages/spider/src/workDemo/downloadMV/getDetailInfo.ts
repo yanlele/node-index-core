@@ -1,10 +1,11 @@
-import { get, isEmpty, isString } from 'lodash';
+import { get, isString } from 'lodash';
 import { Page } from 'puppeteer';
 import { load } from 'cheerio';
 import { query } from '../../utils/mysql';
 
 import { host } from './index';
 import { tco } from './utils';
+import { CheerioAPI } from 'cheerio/lib/cheerio';
 
 export interface RowItem {
   id: number;
@@ -45,14 +46,14 @@ export const getDetailInfo = tco(async (page: Page) => {
     await page.waitForSelector('#ct');
     const htmlString: string = await page.evaluate(() => document.body.innerHTML);
 
-    const $: CheerioStatic = load(htmlString);
+    const $: CheerioAPI = load(htmlString);
 
     const lookOver = $('#postlist > table:nth-child(1) > tbody > tr > td.pls.ptn.pbn > div > span:nth-child(2)').text();
     const reply = $('#postlist > table:nth-child(1) > tbody > tr > td.pls.ptn.pbn > div > span:nth-child(5)').text();
 
     const a = $('a').filter((index, element) => {
       const href = $(element).attr('href');
-      return isString(href) && (!href.includes('&nothumb=yes') && href.includes('forum.php?mod=attachment&aid='));
+      return isString(href) && !href.includes('&nothumb=yes') && href.includes('forum.php?mod=attachment&aid=');
     });
 
     const downloadUrl = a.attr('href') ? `${host}${a.attr('href')}` : '-';

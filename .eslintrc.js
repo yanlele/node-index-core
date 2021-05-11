@@ -41,5 +41,6 @@ module.exports = {
         allow: [],
       },
     ],
+    '@typescript-eslint/ban-ts-ignore': 0
   },
 };

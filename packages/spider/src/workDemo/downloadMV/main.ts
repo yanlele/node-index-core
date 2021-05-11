@@ -1,6 +1,7 @@
 import { Page } from 'puppeteer';
 import { load } from 'cheerio';
 import { query } from '../../utils/mysql';
+import { CheerioAPI } from "cheerio/lib/cheerio";
 
 const host = 'https://www.sohux8b.club/';
 
@@ -26,9 +27,10 @@ export const downDetailUrl = async (page: Page, url: string): Promise<any> => {
 
   const htmlString: string = await page.evaluate(() => document.body.innerHTML);
 
-  const $: CheerioStatic = load(htmlString);
+  const $: CheerioAPI = load(htmlString);
   const tableList = $('#threadlisttableid');
 
+  // @ts-ignore
   tableList.find('tbody').each(async (index, element) => {
     const keyWord = $(element)
       .find('tr:nth-child(1) > th > em > a')

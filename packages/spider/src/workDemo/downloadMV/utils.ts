@@ -3,10 +3,10 @@
  * @param f
  */
 export const tco = (f: Function) => {
-  let value;
+  let value: any;
   let action = false;
-  let accumulated = [];
-  return async (...args) => {
+  const accumulated: any[] = [];
+  return async (...args: any) => {
     accumulated.push(args);
     if (!action) {
       action = true;
