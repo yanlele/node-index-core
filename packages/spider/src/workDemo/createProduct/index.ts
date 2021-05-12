@@ -2,9 +2,10 @@
 // import { initConfig, userAgent } from './config';
 import { load } from 'cheerio';
 import { CheerioAPI } from 'cheerio/lib/cheerio';
-import { readFileSync } from 'fs-extra';
-import { trim } from 'lodash';
+import { readFileSync, writeFile } from 'fs-extra';
+import { trim, random, split, includes, toString } from 'lodash';
 import handlePriceHelper from './helper/handlePriceHelper';
+import handleGetImageListHelper from './helper/handleGetImageListHelper';
 
 const main = (): void => {
   // const browser: Browser = await launch(initConfig);
@@ -37,18 +38,22 @@ const main = (): void => {
   //   });
   // }
 
-  const htmlString = readFileSync('./demo.html', { encoding: 'utf-8' });
+  const htmlString = readFileSync('produce1/demo9.html', { encoding: 'utf-8' });
   const $: CheerioAPI = load(htmlString);
   const product_image_list: string[] = [];
   $('#J_UlThumb img').each((index, element: any) => {
     const mainImage = $(element).attr('src');
     const res = mainImage.replace(/[0-9][0-9]x[0-9][0-9]/, '400x400');
+    if (res.endsWith('.gif')) return;
+    if (res.endsWith('.png')) return;
     product_image_list.push(res);
   });
 
   const product_detail_image_list: string[] = [];
   $('#description > div img').each((_, element: any) => {
     const productImage = $(element).attr('src');
+    if (productImage.endsWith('.gif')) return;
+    if (productImage.endsWith('.png')) return;
     product_detail_image_list.push(productImage);
   });
 
@@ -62,8 +67,6 @@ const main = (): void => {
     .find('.tm-price')
     .text();
 
-  const category_id = 22; // todo
-
   const title = $('.tb-detail-hd')
     .find('h1')
     .text();
@@ -71,17 +74,73 @@ const main = (): void => {
   const name = title;
   const desc = name;
 
-  console.log({
-    original_cost: handlePriceHelper(original_cost),
-    price: handlePriceHelper(price) || handlePriceHelper(original_cost),
-    category_id,
-    title: trim(title),
-    name: trim(name),
-    desc: trim(desc),
-  });
+  const params: any[] = [];
+  const handleGetSplit = (value: string): string[] => {
+    if (includes(value, ':')) return split(value, ':');
+    if (includes(value, '：')) return split(value, '：');
+    return [value];
+  };
 
-  // console.log('mainImageList: ', product_image_list);
-  // console.log('productImageList: ', product_detail_image_list);
+  $('#J_AttrUL')
+    .find('li')
+    .each((index, element: any) => {
+      const text = $(element).text();
+      // split(text, ':')
+      const textList = handleGetSplit(text);
+
+      params.push({
+        key: trim(toString(textList[0])),
+        value: trim(toString(textList[1]))
+          .split(' ')[0]
+          .slice(0, 24),
+      });
+    });
+
+  console.log(params);
+
+  //
+  // console.log(
+  //   JSON.stringify(
+  //     {
+  //       category_id,
+  //       title: trim(title),
+  //       name: trim(name),
+  //       desc: trim(desc),
+  //       original_cost: handlePriceHelper(original_cost),
+  //       price: handlePriceHelper(price) || handlePriceHelper(original_cost),
+  //       inventory: random(100, 500),
+  //       status: 1,
+  //       params: JSON.stringify(params),
+  //       primary_image: product_image_list[0],
+  //       product_image_list: handleGetImageListHelper(product_image_list, 1),
+  //       product_detail_image_list: handleGetImageListHelper(product_detail_image_list, 2),
+  //     },
+  //     undefined,
+  //     4,
+  //   ),
+  // );
+
+  writeFile(
+    './build.json',
+    JSON.stringify(
+      {
+        category_id: 17,
+        title: trim(title),
+        name: trim(name),
+        desc: trim(desc),
+        original_cost: handlePriceHelper(original_cost),
+        price: handlePriceHelper(price) || handlePriceHelper(original_cost),
+        inventory: random(100, 500),
+        status: 1,
+        params: JSON.stringify(params),
+        primary_image: product_image_list[0],
+        product_image_list: handleGetImageListHelper(product_image_list, 1),
+        product_detail_image_list: handleGetImageListHelper(product_detail_image_list, 2),
+      },
+      undefined,
+      4,
+    ),
+  );
 };
 
 main();
