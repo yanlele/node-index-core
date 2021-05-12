@@ -2,7 +2,7 @@
 import UserAgent from './getUserAgent';
 
 // @ts-ignore
-const userAgent = new UserAgent({
+export const userAgent = new UserAgent({
   deviceCategory: 'desktop',
 }).toString();
 
