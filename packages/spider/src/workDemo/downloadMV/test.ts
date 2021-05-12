@@ -5,6 +5,7 @@ import { load } from 'cheerio';
 import { isString } from 'lodash';
 
 import { handleCreatePage, initConfig } from '../../config';
+import { CheerioAPI } from 'cheerio/lib/cheerio';
 
 const fileHtmlPath = resolve(__dirname, './tempDownload/tempDetail.html');
 
@@ -42,15 +43,13 @@ const main = () => {
   let fileData = '';
   try {
     fileData = readFileSync(fileHtmlPath, 'utf8');
-    const $: CheerioStatic = load(fileData);
+    const $: CheerioAPI = load(fileData);
 
-
-    const a = $('a').filter((index, element) => {
+    const a = $('a').filter((index: number, element: any) => {
       const href = $(element).attr('href');
-      return isString(href) && (!href.includes('&nothumb=yes') && href.includes('forum.php?mod=attachment&aid='))
+      return isString(href) && !href.includes('&nothumb=yes') && href.includes('forum.php?mod=attachment&aid=');
     });
-    console.log(a.attr('href'))
-
+    console.log(a.attr('href'));
   } catch (e) {
     console.log(e);
   }

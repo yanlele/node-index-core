@@ -1,7 +1,7 @@
 import { Page } from 'puppeteer';
 import { load } from 'cheerio';
 import { query } from '../../utils/mysql';
-import { CheerioAPI } from "cheerio/lib/cheerio";
+import { CheerioAPI } from 'cheerio/lib/cheerio';
 
 const host = 'https://www.sohux8b.club/';
 

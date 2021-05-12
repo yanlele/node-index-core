@@ -26,6 +26,7 @@ worker/
 /packages/**/*.js.map
 !jest.config.js
 !.eslintrc.js
+!packages/spider/src/workDemo/createProduct/**/*.js
 
 tempDownload/
 
