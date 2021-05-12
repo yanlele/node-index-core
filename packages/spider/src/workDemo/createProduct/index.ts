@@ -3,6 +3,8 @@
 import { load } from 'cheerio';
 import { CheerioAPI } from 'cheerio/lib/cheerio';
 import { readFileSync } from 'fs-extra';
+import { trim } from 'lodash';
+import handlePriceHelper from './helper/handlePriceHelper';
 
 const main = (): void => {
   // const browser: Browser = await launch(initConfig);
@@ -37,21 +39,49 @@ const main = (): void => {
 
   const htmlString = readFileSync('./demo.html', { encoding: 'utf-8' });
   const $: CheerioAPI = load(htmlString);
-  const mainImageList: string[] = [];
+  const product_image_list: string[] = [];
   $('#J_UlThumb img').each((index, element: any) => {
     const mainImage = $(element).attr('src');
     const res = mainImage.replace(/[0-9][0-9]x[0-9][0-9]/, '400x400');
-    mainImageList.push(res);
+    product_image_list.push(res);
   });
 
-  const productImageList: string[] = [];
+  const product_detail_image_list: string[] = [];
   $('#description > div img').each((_, element: any) => {
     const productImage = $(element).attr('src');
-    productImageList.push(productImage);
+    product_detail_image_list.push(productImage);
   });
 
-  console.log('mainImageList: ', mainImageList);
-  console.log('productImageList: ', productImageList);
+  // 初始价格
+  const original_cost = $('#J_StrPriceModBox')
+    .find('.tm-price')
+    .text();
+
+  // 现在价格/折扣价
+  const price = $('#J_PromoPrice')
+    .find('.tm-price')
+    .text();
+
+  const category_id = 22; // todo
+
+  const title = $('.tb-detail-hd')
+    .find('h1')
+    .text();
+
+  const name = title;
+  const desc = name;
+
+  console.log({
+    original_cost: handlePriceHelper(original_cost),
+    price: handlePriceHelper(price) || handlePriceHelper(original_cost),
+    category_id,
+    title: trim(title),
+    name: trim(name),
+    desc: trim(desc),
+  });
+
+  // console.log('mainImageList: ', product_image_list);
+  // console.log('productImageList: ', product_detail_image_list);
 };
 
 main();
