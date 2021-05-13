@@ -38,7 +38,7 @@ const main = (): void => {
   //   });
   // }
 
-  const htmlString = readFileSync('produce1/demo9.html', { encoding: 'utf-8' });
+  const htmlString = readFileSync('produce1/demo16.html', { encoding: 'utf-8' });
   const $: CheerioAPI = load(htmlString);
   const product_image_list: string[] = [];
   $('#J_UlThumb img').each((index, element: any) => {
@@ -124,7 +124,7 @@ const main = (): void => {
     './build.json',
     JSON.stringify(
       {
-        category_id: 17,
+        category_id: 23,
         title: trim(title),
         name: trim(name),
         desc: trim(desc),
