@@ -71,6 +71,31 @@ export class NodeList {
     prevNode.next = node;
   }
 
+  remove(val: number) {
+    const node = this.find(val);
+    let prevNode: ListNode;
+
+    // 如果没有节点， 直接返回
+    if (!this.head) return;
+
+    // 如果删除的节点为第一个节点
+    if (this.head === node) {
+      this.head = this.head.next;
+      return;
+    }
+
+    prevNode = this.head;
+    while (prevNode && prevNode.next === node) {
+      prevNode = prevNode.next;
+    }
+
+    // 如果删除的最后一个元素
+    if (node && !node.next) prevNode.next = null;
+
+    // 如果删除的非最后一个元素
+    if (node && node.next) prevNode.next = node.next
+  }
+
   // 获取节点长度
   getLength() {
     let length = 0;
