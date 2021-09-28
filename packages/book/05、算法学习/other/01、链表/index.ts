@@ -44,7 +44,7 @@ export class NodeList {
     }
 
     let prevNode = this.head;
-    while (prevNode && !prevNode.next) {
+    while (prevNode && prevNode.next) {
       prevNode = prevNode.next;
     }
 
