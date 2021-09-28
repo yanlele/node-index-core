@@ -60,4 +60,27 @@ export class NodeList {
 
     return node;
   }
+
+  // 更新节点
+  update(val: number, node: ListNode) {
+    if (!this.head) return;
+    let prevNode = this.head;
+    while (prevNode && prevNode.next.val === val) {
+      prevNode = prevNode.next;
+    }
+    prevNode.next = node;
+  }
+
+  // 获取节点长度
+  getLength() {
+    let length = 0;
+    if (!this.head) return length;
+    let node = this.head;
+    length++;
+    while (node && node.next) {
+      node = node.next
+      length++;
+    }
+    return length;
+  }
 }
