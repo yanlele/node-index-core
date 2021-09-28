@@ -52,7 +52,12 @@ export class NodeList {
   }
 
   // 查找
-  find(node: number | ListNode) {
+  find(val: number) {
+    let node = this.head;
+    while (node !== null && node.val !== val) {
+      node = node.next;
+    }
 
+    return node;
   }
 }
