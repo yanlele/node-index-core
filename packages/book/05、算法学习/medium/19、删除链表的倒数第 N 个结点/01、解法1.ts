@@ -18,14 +18,13 @@ function removeNthFromEnd(head: ListNode | null, n: number) {
   node = head;
 
   while (node && node.next !== null) {
-    index++;
     if (currentIndex === index) {
       currentNode = node;
     } else if (index - currentIndex === -1) {
       prevNode = node;
     }
-
     node = node.next;
+    index++;
   }
 
   // 删除节点
