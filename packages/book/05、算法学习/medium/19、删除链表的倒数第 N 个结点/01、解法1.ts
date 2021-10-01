@@ -1,6 +1,12 @@
 import { ListNode } from '../../other/01、链表';
 import { head } from './data';
 
+/**
+ * 这个解法虽然是没有问题， 但是性能太差了
+ *
+ * @param head
+ * @param n
+ */
 function removeNthFromEnd(head: ListNode | null, n: number) {
   let prevNode: ListNode, currentNode: ListNode;
   let node;
