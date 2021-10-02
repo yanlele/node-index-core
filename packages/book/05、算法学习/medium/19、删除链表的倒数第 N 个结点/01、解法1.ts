@@ -3,6 +3,7 @@ import { head } from './data';
 
 /**
  * 这个解法虽然是没有问题， 但是性能太差了
+ * 最大的问题是循环了两次
  *
  * @param head
  * @param n
