@@ -20,33 +20,23 @@ import { l1, l2 } from './data';
  * }
  */
 
+/**
+ * 递归法
+ *
+ * @param l1
+ * @param l2
+ */
 function mergeTwoLists(l1: ListNode | null, l2: ListNode | null) {
-  let node = new ListNode(0);
-  const result = node;
+  if (l1 === null) return l2;
+  if (l2 === null) return l1;
 
-  while (l1 || l2) {
-    const val1 = l1?.val;
-    const val2 = l2?.val;
-
-    if (val1 !== undefined && val2 !== undefined) {
-      if (val1 >= val2) {
-        node.next = l2;
-        l2 = l2.next;
-      } else {
-        node.next = l1;
-        l1 = l1.next;
-      }
-      node = node.next;
-    }
-    else {
-      node.next = l1 || l2;
-      l1 = l1?.next;
-      l2 = l2?.next;
-      node = node.next;
-    }
+  if (l1?.val <= l2?.val) {
+    l1.next = mergeTwoLists(l1.next, l2);
+    return l1;
+  } else {
+    l2.next = mergeTwoLists(l1, l2.next);
+    return l2
   }
-
-  return result.next;
 }
 
 const result = mergeTwoLists(l1.head, l2.head);
