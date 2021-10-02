@@ -21,29 +21,34 @@ import { l1, l2 } from './data';
  */
 
 function mergeTwoLists(l1: ListNode | null, l2: ListNode | null) {
-  let resultNode = new ListNode(0);
+  let node = new ListNode(0);
+  const result = node;
 
   while (l1 || l2) {
     const val1 = l1?.val;
     const val2 = l2?.val;
 
-    if (val1 !== null && val2 !== null) {
+    if (val1 !== undefined && val2 !== undefined) {
       if (val1 >= val2) {
-        resultNode.next = l1;
-        l1 = l1.next;
-      } else {
-        resultNode.next = l2;
+        node.next = l2;
         l2 = l2.next;
+      } else {
+        node.next = l1;
+        l1 = l1.next;
       }
-
-      resultNode = resultNode.next;
-    } else {
-      resultNode = l1 || l2;
+      node = node.next;
+    }
+    else {
+      node.next = l1 || l2;
+      l1 = l1?.next;
+      l2 = l2?.next;
+      node = node.next;
     }
   }
 
-  console.log(resultNode)
-  return resultNode.next;
+  return result.next;
 }
 
-console.log(mergeTwoLists(l1.head, l2.head));
+const result = mergeTwoLists(l1.head, l2.head);
+
+console.log(JSON.stringify(result, undefined, 4));
