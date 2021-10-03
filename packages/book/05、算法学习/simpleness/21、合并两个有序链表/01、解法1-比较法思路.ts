@@ -21,7 +21,7 @@ import { l1, l2 } from './data';
  */
 
 /**
- * 比较法思路
+ *
  * @param l1
  * @param l2
  */
